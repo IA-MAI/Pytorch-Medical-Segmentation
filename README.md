@@ -1,19 +1,4 @@
 # Pytorch Medical Segmentation
-<i>Read Chinese Introduction：<a href='https://github.com/MontaEllis/Pytorch-Medical-Segmentation/blob/master/README-zh.md'>Here！</a></i><br />
-
-## Notes
-We are planning a major update to the code in the near future, so if you have any suggestions, please feel free to email [me](elliszkn@163.com) or mention them in the issue.
-
-## Recent Updates
-* 2021.1.8 The train and test codes are released.
-* 2021.2.6 A bug in dice was fixed with the help of [Shanshan Li](https://github.com/ssli23).
-* 2021.2.24 A Chinese video tutorial was released(https://www.bilibili.com/video/BV1gp4y1H7kq/).
-* 2021.5.16 A bug in Unet3D implement was fixed.
-* 2021.5.16 The metric code is released.
-* 2021.6.24 All parameters can be adjusted in hparam.py.
-* 2021.7.7 Now you can refer medical classification in [Pytorch-Medical-Classification](https://github.com/MontaEllis/Pytorch-Medical-Classification)
-* 2022.5.15 Now you can refer semi-supervised learning on medical segmentation in [SSL-For-Medical-Segmentation](https://github.com/MontaEllis/SSL-For-Medical-Segmentation)
-* 2022.5.17 We update the training and inference code and fix some bugs.
 
 ## Requirements
 * pytorch1.7
@@ -23,80 +8,56 @@ We are planning a major update to the code in the near future, so if you have an
 ## Notice
 * You can modify **hparam.py** to determine whether 2D or 3D segmentation and whether multicategorization is possible.
 * We provide algorithms for almost all 2D and 3D segmentation.
-* This repository is compatible with almost all medical data formats(e.g. nii.gz, nii, mhd, nrrd, ...), by modifying **fold_arch** in **hparam.py** of the config. **I would like you to convert both the source and label images to the same type before using them, where labels are marked with 1, not 255.**
-* If you want to use a **multi-category** program, please modify the corresponding codes by yourself. I cannot identify your specific categories.
+* This repository is compatible with almost all medical data formats(e.g. nii.gz, nii, mhd, nrrd, ...), by modifying **fold_arch** in **hparam.py** of the config. 
+* **Convert both the source and label images to the same type, where labels are marked with 1, not 255.**
+* **For multi-category**, modify the corresponding codes for your specific categories.
 * Whether in 2D or 3D, this project is processed using **patch**. Therefore, images do not have to be strictly the same size. In 2D, however, you should set the patch large enough.
 
 ## Prepare Your Dataset
 ### Example1
-if your source dataset is :
+
+- **hparam.py:**
+  - fold_arch: \*.mhd
+
 ```
 source_dataset
 ├── source_1.mhd
-├── source_1.zraw
 ├── source_2.mhd
-├── source_2.zraw
-├── source_3.mhd
-├── source_3.zraw
-├── source_4.mhd
-├── source_4.zraw
 └── ...
 ```
 
-and your label dataset is :
+label dataset:
 ```
 label_dataset
 ├── label_1.mhd
-├── label_1.zraw
 ├── label_2.mhd
-├── label_2.zraw
-├── label_3.mhd
-├── label_3.zraw
-├── label_4.mhd
-├── label_4.zraw
 └── ...
 ```
 
-then your should modify **fold_arch** as **\*.mhd**, **source_train_dir** as **source_dataset** and **label_train_dir** as **label_dataset** in **hparam.py**
-
 ### Example2
-if your source dataset is :
+
+- **hparam.py:**
+  - fold_arch: \*/\*.mhd
+
 ```
 source_dataset
 ├── 1
     ├── source_1.mhd
-    ├── source_1.zraw
 ├── 2
     ├── source_2.mhd
-    ├── source_2.zraw
-├── 3
-    ├── source_3.mhd
-    ├── source_3.zraw
-├── 4
-    ├── source_4.mhd
-    ├── source_4.zraw
 └── ...
 ```
 
-and your label dataset is :
+label dataset:
 ```
 label_dataset
 ├── 1
     ├── label_1.mhd
-    ├── label_1.zraw
 ├── 2
     ├── label_2.mhd
-    ├── label_2.zraw
-├── 3
-    ├── label_3.mhd
-    ├── label_3.zraw
-├── 4
-    ├── label_4.mhd
-    ├── label_4.zraw
 └── ...
 ```
 
-then your should modify **fold_arch** as **\*/\*.mhd**, **source_train_dir** as **source_dataset** and **label_train_dir** as **label_dataset** in **hparam.py**
 
 
 ## Training
